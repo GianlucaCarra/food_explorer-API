@@ -1,0 +1,49 @@
+{
+  "name": "food-explorer-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start:prod": "pm2-runtime start ecosystem.config.js --env production",
+    "migrate:prod": "npx knex migrate:latest --env production",
+    "seed:prod": "npx seed:run --env production",
+    "dev": "nodemon --exec 'ts-node' src/server.ts",
+    "start": "pm2-runtime start ecosystem.config.js --env development",
+    "migrate": "npx ts-node ./node_modules/.bin/knex migrate:latest --env development",
+    "seed": "npx ts-node ./node_modules/.bin/knex seed:run --env development",
+    "rollback": "npx knex migrate:rollback --all"
+  },
+  "keywords": [],
+  "author": "Gianluca Carra",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.7",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/knex": "^0.16.1",
+    "@types/multer": "^1.4.11",
+    "@types/node": "^22.0.2",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.7",
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.2.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "eslint": "^9.8.0",
+    "express": "^4.19.2",
+    "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "knex": "^3.1.0",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.11.5",
+    "pm2": "^5.4.0",
+    "sqlite3": "^5.1.7"
+  }
+}
