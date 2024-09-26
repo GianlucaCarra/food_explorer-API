@@ -1,429 +1,177 @@
 import { Knex } from "knex";
 
-const meals = [
-    {
-        name: "Kebab",
-        desc: "Delicious grilled meat served with fresh vegetables.",
-        imageURL: "https://minervafoods.com/wp-content/uploads/2022/12/kebab-3.jpg",
-        publicID: "KEB",
-        price: 8.50,
-        type: "meal"
-    },
-    {
-        name: "Pad Thai",
-        desc: "Stir-fried rice noodles with shrimp and peanuts.",
-        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAyOIAA9BA7UNRFUyF_LJWGjH6eRypsPckyg&s",
-        publicID: "PAD",
-        price: 9.00,
-        type: "meal"
-    },
-    {
-        name: "Tacos al Pastor",
-        desc: "Spicy pork tacos with pineapple.",
-        imageURL: "https://iamafoodblog.b-cdn.net/wp-content/uploads/2021/05/al-pastor-3507w.jpg",
-        publicID: "TAC",
-        price: 7.50,
-        type: "meal"
-    },
-    {
-        name: "Risotto alla Milanese",
-        desc: "Creamy saffron risotto from Milan.",
-        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7OQB46rOBk5f3t0eJs57Qfh618VkvPvyCsQ&s",
-        publicID: "RIS",
-        price: 10.00,
-        type: "meal"
-    },
-    {
-        name: "Biryani",
-        desc: "Fragrant rice dish with marinated meat and spices.",
-        imageURL: "https://static.itdg.com.br/images/1200-675/908beb537a204529e3fc9c016973d21f/354804-original.jpg",
-        publicID: "BIR",
-        price: 12.00,
-        type: "meal"
-    },
-    {
-        name: "Falafel Wrap",
-        desc: "Crispy falafel served in pita bread.",
-        imageURL: "https://cookingwithayeh.com/wp-content/uploads/2024/03/Falafel-Wrap-SQ-1.jpg",
-        publicID: "FAL",
-        price: 6.50,
-        type: "meal"
-    },
-    {
-        name: "Goulash",
-        desc: "Hearty stew of beef and vegetables.",
-        imageURL: "https://minervafoods.com/wp-content/uploads/2022/12/goulash_img_0045_foto.jpg",
-        publicID: "GOU",
-        price: 11.00,
-        type: "meal"
-    },
-    {
-        name: "Chili con Carne",
-        desc: "Spicy stew of ground beef and beans.",
-        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaHxNwsm3lg4f5lv2qaqizZYpb-ZsoUTqcog&s",
-        publicID: "CHI",
-        price: 9.50,
-        type: "meal"
-    },
-    {
-        name: "Lasagna",
-        desc: "Layered pasta dish with meat and cheese.",
-        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIuN3AiqhHJdkT9OuaJKC_ZtLGxI_wxdFYPg&s",
-        publicID: "LAS",
-        price: 10.50,
-        type: "meal"
-    },
-    {
-        name: "Moussaka",
-        desc: "Baked dish of eggplant and ground meat.",
-        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvYxexR5-9RMVv_os3kzyf7Um9-mB7NSt6TQ&s",
-        publicID: "MOUS",
-        price: 10.00,
-        type: "meal"
-    },
-    {
-        name: "Tiramisu",
-        desc: "Classic Italian coffee-flavored dessert.",
-        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOnulTZG9c7sN24AcLcv_KeDkTlwihqjuM_A&s",
-        publicID: "TIR",
-        price: 5.50,
-        type: "dessert"
-    },
-    {
-        name: "Cheesecake",
-        desc: "Creamy dessert with a graham cracker crust.",
-        imageURL: "https://static.itdg.com.br/images/360-240/722816207b46644920ab0c65a7faab72/shutterstock-2202992931.jpg",
-        publicID: "CHE",
-        price: 6.00,
-        type: "dessert"
-    },
-    {
-        name: "Crème Brûlée",
-        desc: "Rich custard topped with caramelized sugar.",
-        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfSsxVvyH3MBNAfglbltg69zO8tyayumWjMw&s",
-        publicID: "CRE",
-        price: 7.00,
-        type: "dessert"
-    },
-    {
-        name: "Chocolate Mousse",
-        desc: "Light and fluffy chocolate dessert.",
-        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE-RL4bkqcfRWaCzcUaQuXy8jhXyC0z8h4Iw&s",
-        publicID: "MOUS",
-        price: 6.50,
-        type: "dessert"
-    },
-    {
-        name: "Panna Cotta",
-        desc: "Italian cooked cream dessert.",
-        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqYIrZzsSCWCV3PN97n_1z4Nk1R5UQst-HkA&s",
-        publicID: "PAN",
-        price: 6.00,
-        type: "dessert"
-    },
-    {
-        name: "Margarita",
-        desc: "Classic cocktail with tequila and lime.",
-        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNh_9lux1Gr6BtS5NEGsd3oIJxDJXtGPa6WA&s",
-        publicID: "MAR",
-        price: 8.00,
-        type: "drink"
-    },
-    {
-        name: "Apple Pie",
-        desc: "Traditional dessert made with apples and spices.",
-        imageURL: "https://static01.nyt.com/images/2023/11/09/multimedia/09piesrex3-apple/09piesrex4-lemon-cqtk-square640.jpg",
-        publicID: "APP",
-        price: 5.00,
-        type: "dessert"
-    },
-    {
-        name: "Brownies",
-        desc: "Fudgy chocolate squares with a crispy top.",
-        imageURL: "https://static.itdg.com.br/images/360-240/9e621f4e0b36756979fda3f87f8279a5/340593-original.jpg",
-        publicID: "BRO",
-        price: 4.50,
-        type: "dessert"
-    },
-
-
-    {
-        name: "Mojito",
-        desc: "Refreshing cocktail with mint and lime.",
-        imageURL: "https://i.panelinha.com.br/i1/228-q-6121-mojito.webp",
-        publicID: "MOJ",
-        price: 7.00,
-        type: "drink"
-    },
-    {
-        name: "Pina Colada",
-        desc: "Tropical cocktail with rum and pineapple.",
-        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1V9Bdk9b211Ij-Kvm_3B2-BEXW1TeGjx1-Q&s",
-        publicID: "PIN",
-        price: 7.50,
-        type: "drink"
-    },
-    {
-        name: "Lemonade",
-        desc: "Refreshing drink made with lemon juice and sugar.",
-        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4Oe0cfizikfWR-AscJvvxLF6yzne56XiiWQ&s",
-        publicID: "LEM",
-        price: 2.50,
-        type: "drink"
-    },
-    {
-        name: "Iced Tea",
-        desc: "Chilled tea, perfect for hot days.",
-        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvP-CwuLrcooQcJzNj3XihsPr0_k22BSG4kQ&s",
-        publicID: "ITEA",
-        price: 3.50,
-        type: "drink"
-    },
-    {
-        name: "Smoothie",
-        desc: "Blended fruit drink, refreshing and healthy.",
-        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjHArZFmC9vryb8PDEzB_M-FjvU8kiPdsG7A&s",
-        publicID: "SMO",
-        price: 5.50,
-        type: "drink"
-    },
-    {
-        name: "Hot Chocolate",
-        desc: "Rich chocolate drink, perfect for winter.",
-        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkdcO_vSFWM8UGZXN70gi-Ai5UR12ZqISnQg&s",
-        publicID: "HOT",
-        price: 4.50,
-        type: "drink"
-    },
-    {
-        name: "Cappuccino",
-        desc: "Rich coffee topped with frothy milk.",
-        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRM2K2P6AxpBi242WNHHfxVF7kbxfdVA0LSg&s",
-        publicID: "CAP",
-        price: 4.00,
-        type: "drink"
-    },
-    {
-        name: "Chicken Curry",
-        desc: "Spicy curry with tender chicken.",
-        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGt_ptBFInUH3fMEUvHTRhK7YFYTPHhfiagw&s",
-        publicID: "CUR",
-        price: 9.00,
-        type: "meal"
-    },
-    {
-        name: "Fettuccine Alfredo",
-        desc: "Creamy pasta with cheese and butter.",
-        imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSul2t4BwMDhbuAfVBEJkm3i5-uKtudyAGzTA&s",
-        publicID: "FET",
-        price: 8.50,
-        type: "meal"
-    },
-    {
-        name: "Sushi",
-        desc: "Japanese dish with vinegared rice and fresh fish.",
-        imageURL: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Sushi_platter.jpg/800px-Sushi_platter.jpg",
-        publicID: "SUS",
-        price: 15.00,
-        type: "meal"
-    },
-];
-
-
-const ingredients = [
-    // Ingredients for Kebab
-    { meal_id: 0, name: "Pita Bread" },
-    { meal_id: 0, name: "Lamb Meat" },
-    { meal_id: 0, name: "Fresh Vegetables" },
-    { meal_id: 0, name: "Yogurt Sauce" },
-
-    // Ingredients for Pad Thai
-    { meal_id: 1, name: "Rice Noodles" },
-    { meal_id: 1, name: "Shrimp" },
-    { meal_id: 1, name: "Peanuts" },
-    { meal_id: 1, name: "Soy Sauce" },
-    { meal_id: 1, name: "Egg" },
-    
-    // Ingredients for Tacos al Pastor
-    { meal_id: 2, name: "Tortillas" },
-    { meal_id: 2, name: "Pork Meat" },
-    { meal_id: 2, name: "Pineapple" },
-    { meal_id: 2, name: "Cilantro" },
-    { meal_id: 2, name: "Onion" },
-    
-    // Ingredients for Risotto alla Milanese
-    { meal_id: 3, name: "Arborio Rice" },
-    { meal_id: 3, name: "Chicken Broth" },
-    { meal_id: 3, name: "Saffron" },
-    { meal_id: 3, name: "Parmesan Cheese" },
-    { meal_id: 3, name: "Butter" },
-    
-    // Ingredients for Biryani
-    { meal_id: 4, name: "Basmati Rice" },
-    { meal_id: 4, name: "Marinated Meat" },
-    { meal_id: 4, name: "Spices" },
-    { meal_id: 4, name: "Herbs" },
-    { meal_id: 4, name: "Yogurt" },
-    
-    // Ingredients for Falafel Wrap
-    { meal_id: 5, name: "Falafel Balls" },
-    { meal_id: 5, name: "Pita Bread" },
-    { meal_id: 5, name: "Tahini Sauce" },
-    { meal_id: 5, name: "Lettuce" },
-    { meal_id: 5, name: "Tomato" },
-
-    // Ingredients for Goulash
-    { meal_id: 6, name: "Beef" },
-    { meal_id: 6, name: "Potatoes" },
-    { meal_id: 6, name: "Onion" },
-    { meal_id: 6, name: "Paprika" },
-    { meal_id: 6, name: "Carrots" },
-
-    // Ingredients for Chili con Carne
-    { meal_id: 7, name: "Ground Beef" },
-    { meal_id: 7, name: "Beans" },
-    { meal_id: 7, name: "Bell Pepper" },
-    { meal_id: 7, name: "Onion" },
-    { meal_id: 7, name: "Chili Powder" },
-
-    // Ingredients for Lasagna
-    { meal_id: 8, name: "Lasagna Sheets" },
-    { meal_id: 8, name: "Ground Beef" },
-    { meal_id: 8, name: "Cheese" },
-    { meal_id: 8, name: "Tomato Sauce" },
-    { meal_id: 8, name: "Egg" },
-    
-    // Ingredients for Moussaka
-    { meal_id: 9, name: "Eggplant" },
-    { meal_id: 9, name: "Ground Beef" },
-    { meal_id: 9, name: "Bechamel Sauce" },
-    { meal_id: 9, name: "Potatoes" },
-    
-    // Ingredients for Tiramisu
-    { meal_id: 10, name: "Ladyfingers" },
-    { meal_id: 10, name: "Mascarpone" },
-    { meal_id: 10, name: "Coffee" },
-    { meal_id: 10, name: "Cocoa Powder" },
-    { meal_id: 10, name: "Sugar" },
-
-    // Ingredients for Cheesecake
-    { meal_id: 11, name: "Cream Cheese" },
-    { meal_id: 11, name: "Sugar" },
-    { meal_id: 11, name: "Graham Crackers" },
-    { meal_id: 11, name: "Eggs" },
-    
-    // Ingredients for Crème Brûlée
-    { meal_id: 12, name: "Heavy Cream" },
-    { meal_id: 12, name: "Sugar" },
-    { meal_id: 12, name: "Eggs" },
-    { meal_id: 12, name: "Vanilla" },
-
-    // Ingredients for Chocolate Mousse
-    { meal_id: 13, name: "Dark Chocolate" },
-    { meal_id: 13, name: "Heavy Cream" },
-    { meal_id: 13, name: "Eggs" },
-    { meal_id: 13, name: "Sugar" },
-    
-    // Ingredients for Panna Cotta
-    { meal_id: 14, name: "Heavy Cream" },
-    { meal_id: 14, name: "Sugar" },
-    { meal_id: 14, name: "Gelatin" },
-    { meal_id: 14, name: "Vanilla" },
-    
-    // Ingredients for Baklava
-    { meal_id: 15, name: "Phyllo Dough" },
-    { meal_id: 15, name: "Nuts" },
-    { meal_id: 15, name: "Honey" },
-    { meal_id: 15, name: "Cinnamon" },
-
-    // Ingredients for Apple Pie
-    { meal_id: 16, name: "Pie Crust" },
-    { meal_id: 16, name: "Apples" },
-    { meal_id: 16, name: "Sugar" },
-    { meal_id: 16, name: "Cinnamon" },
-    
-    // Ingredients for Mango Sticky Rice
-    { meal_id: 17, name: "Sticky Rice" },
-    { meal_id: 17, name: "Coconut Milk" },
-    { meal_id: 17, name: "Mango" },
-
-    // Ingredients for Brownies
-    { meal_id: 18, name: "Chocolate" },
-    { meal_id: 18, name: "Butter" },
-    { meal_id: 18, name: "Sugar" },
-    { meal_id: 18, name: "Eggs" },
-
-    // Ingredients for Lemon Tart
-    { meal_id: 19, name: "Pastry" },
-    { meal_id: 19, name: "Lemon Juice" },
-    { meal_id: 19, name: "Sugar" },
-    { meal_id: 19, name: "Meringue" },
-
-    // Ingredients for Mojito
-    { meal_id: 20, name: "Rum" },
-    { meal_id: 20, name: "Mint" },
-    { meal_id: 20, name: "Lime" },
-    { meal_id: 20, name: "Sugar" },
-    { meal_id: 20, name: "Sparkling Water" },
-
-    // Ingredients for Pina Colada
-    { meal_id: 21, name: "Rum" },
-    { meal_id: 21, name: "Coconut Cream" },
-    { meal_id: 21, name: "Pineapple Juice" },
-    { meal_id: 21, name: "Fresh Pineapple" },
-
-    // Ingredients for Lemonade
-    { meal_id: 22, name: "Lemon Juice" },
-    { meal_id: 22, name: "Sugar" },
-    { meal_id: 22, name: "Water" },
-
-    // Ingredients for Iced Coffee
-    { meal_id: 23, name: "Coffee" },
-    { meal_id: 23, name: "Ice" },
-    { meal_id: 23, name: "Milk" },
-
-    // Ingredients for Smoothie
-    { meal_id: 24, name: "Mixed Fruits" },
-    { meal_id: 24, name: "Yogurt" },
-    { meal_id: 24, name: "Milk" },
-    { meal_id: 24, name: "Ice" },
-
-    // Ingredients for Green Tea
-    { meal_id: 25, name: "Green Tea Leaves" },
-    { meal_id: 25, name: "Hot Water" },
-
-    // Ingredients for Cappuccino
-    { meal_id: 26, name: "Espresso" },
-    { meal_id: 26, name: "Steamed Milk" },
-    { meal_id: 26, name: "Milk Foam" },
-
-    // Ingredients for Chicken Curry
-    { meal_id: 27, name: "Chicken" },
-    { meal_id: 27, name: "Curry Powder" },
-    { meal_id: 27, name: "Coconut Milk" },
-    { meal_id: 27, name: "Onion" },
-    
-    // Ingredients for Fettuccine Alfredo
-    { meal_id: 28, name: "Fettuccine" },
-    { meal_id: 28, name: "Cream" },
-    { meal_id: 28, name: "Parmesan Cheese" },
-    { meal_id: 28, name: "Butter" },
-
-    // Ingredients for Sushi
-    { meal_id: 29, name: "Sushi Rice" },
-    { meal_id: 29, name: "Nori" },
-    { meal_id: 29, name: "Fresh Fish" },
-    { meal_id: 29, name: "Soy Sauce" },
-    { meal_id: 29, name: "Wasabi" }
-];
-
-
 export async function seed(knex: Knex): Promise<void> {
-    await knex("meals").del();
+    // Deleta as tabelas de meals e ingredients, se já existirem
+    await knex('ingredients').del();
+    await knex('meals').del();
 
-    await knex("ingredients").del();
+    // Insere as refeições
+    const mealsToInsert = [
+        { name: "Burger", desc: "A juicy beef burger with cheese and veggies.", imageURL: "https://image.example.com/burger.jpg", publicID: "BUR", price: 8.50, type: "meal" },
+        { name: "Pizza Margherita", desc: "Classic Margherita pizza with fresh mozzarella and basil.", imageURL: "https://image.example.com/pizza.jpg", publicID: "PIZ", price: 10.00, type: "meal" },
+        { name: "Sushi", desc: "Fresh sushi with fish and rice.", imageURL: "https://image.example.com/sushi.jpg", publicID: "SUS", price: 12.00, type: "meal" },
+        { name: "Caesar Salad", desc: "A crisp Caesar salad with parmesan and croutons.", imageURL: "https://image.example.com/caesar.jpg", publicID: "SAL", price: 7.00, type: "meal" },
+        { name: "Chicken Alfredo", desc: "Pasta with creamy Alfredo sauce and grilled chicken.", imageURL: "https://image.example.com/alfredo.jpg", publicID: "ALF", price: 9.50, type: "meal" },
+        { name: "Steak", desc: "Grilled steak served with mashed potatoes.", imageURL: "https://image.example.com/steak.jpg", publicID: "STK", price: 15.00, type: "meal" },
+        { name: "Fish Tacos", desc: "Crispy fish tacos with salsa and slaw.", imageURL: "https://image.example.com/tacos.jpg", publicID: "TAC", price: 8.00, type: "meal" },
+        { name: "Pad Thai", desc: "Stir-fried rice noodles with shrimp and peanuts.", imageURL: "https://image.example.com/padthai.jpg", publicID: "PAD", price: 9.00, type: "meal" },
+        { name: "Beef Stroganoff", desc: "Tender beef in a creamy sauce.", imageURL: "https://image.example.com/stroganoff.jpg", publicID: "STR", price: 11.00, type: "meal" },
+        { name: "Grilled Salmon", desc: "Grilled salmon with steamed vegetables.", imageURL: "https://image.example.com/salmon.jpg", publicID: "SAL", price: 13.00, type: "meal" },
 
-    await knex("meals").insert(meals);
+        // Sobremesas
+        { name: "Chocolate Cake", desc: "Rich chocolate cake with a creamy frosting.", imageURL: "https://image.example.com/cake.jpg", publicID: "CAK", price: 6.00, type: "dessert" },
+        { name: "Cheesecake", desc: "Creamy cheesecake with a graham cracker crust.", imageURL: "https://image.example.com/cheesecake.jpg", publicID: "CHE", price: 6.50, type: "dessert" },
+        { name: "Tiramisu", desc: "Classic Italian dessert with layers of coffee-soaked ladyfingers.", imageURL: "https://image.example.com/tiramisu.jpg", publicID: "TIR", price: 7.00, type: "dessert" },
+        { name: "Apple Pie", desc: "Warm apple pie with a flaky crust.", imageURL: "https://image.example.com/applepie.jpg", publicID: "APP", price: 5.50, type: "dessert" },
+        { name: "Panna Cotta", desc: "Italian creamy dessert topped with berries.", imageURL: "https://image.example.com/pannacotta.jpg", publicID: "PAN", price: 6.50, type: "dessert" },
+        { name: "Brownie", desc: "Chocolate brownie with a soft center.", imageURL: "https://image.example.com/brownie.jpg", publicID: "BRO", price: 5.00, type: "dessert" },
+        { name: "Ice Cream Sundae", desc: "Vanilla ice cream topped with chocolate sauce and nuts.", imageURL: "https://image.example.com/sundae.jpg", publicID: "SUN", price: 4.50, type: "dessert" },
+        { name: "Lemon Tart", desc: "Zesty lemon tart with a crisp pastry base.", imageURL: "https://image.example.com/tart.jpg", publicID: "TAR", price: 5.50, type: "dessert" },
+        { name: "Crème Brûlée", desc: "Creamy dessert with a caramelized sugar topping.", imageURL: "https://image.example.com/brulee.jpg", publicID: "CRE", price: 7.00, type: "dessert" },
+        { name: "Fruit Salad", desc: "Fresh fruit salad with a light syrup.", imageURL: "https://image.example.com/fruit.jpg", publicID: "FRU", price: 4.00, type: "dessert" },
 
-    await knex("ingredients").insert(ingredients);
-};
+        // Bebidas
+        { name: "Mojito", desc: "A refreshing cocktail with lime and mint.", imageURL: "https://image.example.com/mojito.jpg", publicID: "MOJ", price: 6.00, type: "drink" },
+        { name: "Lemonade", desc: "Freshly squeezed lemonade.", imageURL: "https://image.example.com/lemonade.jpg", publicID: "LEM", price: 3.50, type: "drink" },
+        { name: "Iced Coffee", desc: "Chilled coffee served over ice.", imageURL: "https://image.example.com/icedcoffee.jpg", publicID: "ICE", price: 4.00, type: "drink" },
+        { name: "Green Tea", desc: "Hot green tea.", imageURL: "https://image.example.com/greentea.jpg", publicID: "GRE", price: 3.00, type: "drink" },
+        { name: "Coca-Cola", desc: "Classic Coca-Cola.", imageURL: "https://image.example.com/coke.jpg", publicID: "COK", price: 2.50, type: "drink" },
+        { name: "Mango Smoothie", desc: "Smoothie made with fresh mango.", imageURL: "https://image.example.com/mango.jpg", publicID: "MAN", price: 5.00, type: "drink" },
+        { name: "Orange Juice", desc: "Freshly squeezed orange juice.", imageURL: "https://image.example.com/orange.jpg", publicID: "ORA", price: 4.00, type: "drink" },
+        { name: "Espresso", desc: "Strong and rich espresso.", imageURL: "https://image.example.com/espresso.jpg", publicID: "ESP", price: 3.00, type: "drink" },
+        { name: "Hot Chocolate", desc: "Warm hot chocolate with whipped cream.", imageURL: "https://image.example.com/hotchocolate.jpg", publicID: "HOT", price: 3.50, type: "drink" },
+        { name: "Milkshake", desc: "Creamy milkshake with flavored syrup.", imageURL: "https://image.example.com/milkshake.jpg", publicID: "MIL", price: 5.00, type: "drink" },
+    ];
+
+    const insertedMeals = await knex('meals').insert(mealsToInsert).returning('id');
+
+    // Map IDs to meal names
+    const mealMap: { [key: string]: number } = mealsToInsert.reduce((acc, meal, index) => {
+        acc[meal.name] = insertedMeals[index].id;
+        return acc;
+    }, {} as { [key: string]: number });
+
+    // Insere os ingredientes
+    const ingredients = [
+        // Ingredients for savory dishes
+        { meal_id: mealMap["Burger"], name: "Beef Patty" },
+        { meal_id: mealMap["Burger"], name: "Cheese" },
+        { meal_id: mealMap["Burger"], name: "Lettuce" },
+        { meal_id: mealMap["Burger"], name: "Tomato" },
+        { meal_id: mealMap["Burger"], name: "Mayonnaise" },
+
+        { meal_id: mealMap["Pizza Margherita"], name: "Pizza Dough" },
+        { meal_id: mealMap["Pizza Margherita"], name: "Tomato Sauce" },
+        { meal_id: mealMap["Pizza Margherita"], name: "Mozzarella Cheese" },
+        { meal_id: mealMap["Pizza Margherita"], name: "Basil" },
+
+        { meal_id: mealMap["Sushi"], name: "Sushi Rice" },
+        { meal_id: mealMap["Sushi"], name: "Fish" },
+        { meal_id: mealMap["Sushi"], name: "Nori Seaweed" },
+
+        { meal_id: mealMap["Caesar Salad"], name: "Romaine Lettuce" },
+        { meal_id: mealMap["Caesar Salad"], name: "Parmesan Cheese" },
+        { meal_id: mealMap["Caesar Salad"], name: "Croutons" },
+        { meal_id: mealMap["Caesar Salad"], name: "Caesar Dressing" },
+
+        { meal_id: mealMap["Chicken Alfredo"], name: "Pasta" },
+        { meal_id: mealMap["Chicken Alfredo"], name: "Alfredo Sauce" },
+        { meal_id: mealMap["Chicken Alfredo"], name: "Grilled Chicken" },
+
+        { meal_id: mealMap["Steak"], name: "Beef Steak" },
+        { meal_id: mealMap["Steak"], name: "Mashed Potatoes" },
+
+        { meal_id: mealMap["Fish Tacos"], name: "Tortillas" },
+        { meal_id: mealMap["Fish Tacos"], name: "Crispy Fish" },
+        { meal_id: mealMap["Fish Tacos"], name: "Salsa" },
+        { meal_id: mealMap["Fish Tacos"], name: "Cabbage Slaw" },
+
+        { meal_id: mealMap["Pad Thai"], name: "Rice Noodles" },
+        { meal_id: mealMap["Pad Thai"], name: "Shrimp" },
+        { meal_id: mealMap["Pad Thai"], name: "Peanuts" },
+        { meal_id: mealMap["Pad Thai"], name: "Lime" },
+
+        { meal_id: mealMap["Beef Stroganoff"], name: "Beef" },
+        { meal_id: mealMap["Beef Stroganoff"], name: "Mushrooms" },
+        { meal_id: mealMap["Beef Stroganoff"], name: "Cream Sauce" },
+
+        { meal_id: mealMap["Grilled Salmon"], name: "Salmon" },
+        { meal_id: mealMap["Grilled Salmon"], name: "Steamed Vegetables" },
+
+        // Ingredients for desserts
+        { meal_id: mealMap["Chocolate Cake"], name: "Chocolate" },
+        { meal_id: mealMap["Chocolate Cake"], name: "Flour" },
+        { meal_id: mealMap["Chocolate Cake"], name: "Sugar" },
+        { meal_id: mealMap["Chocolate Cake"], name: "Eggs" },
+
+        { meal_id: mealMap["Cheesecake"], name: "Cream Cheese" },
+        { meal_id: mealMap["Cheesecake"], name: "Graham Cracker Crust" },
+
+        { meal_id: mealMap["Tiramisu"], name: "Mascarpone Cheese" },
+        { meal_id: mealMap["Tiramisu"], name: "Espresso" },
+        { meal_id: mealMap["Tiramisu"], name: "Ladyfingers" },
+        { meal_id: mealMap["Tiramisu"], name: "Cocoa Powder" },
+
+        { meal_id: mealMap["Apple Pie"], name: "Apples" },
+        { meal_id: mealMap["Apple Pie"], name: "Pie Crust" },
+        { meal_id: mealMap["Apple Pie"], name: "Cinnamon" },
+
+        { meal_id: mealMap["Panna Cotta"], name: "Cream" },
+        { meal_id: mealMap["Panna Cotta"], name: "Gelatin" },
+        { meal_id: mealMap["Panna Cotta"], name: "Berries" },
+
+        { meal_id: mealMap["Brownie"], name: "Cocoa Powder" },
+        { meal_id: mealMap["Brownie"], name: "Butter" },
+        { meal_id: mealMap["Brownie"], name: "Sugar" },
+
+        { meal_id: mealMap["Ice Cream Sundae"], name: "Vanilla Ice Cream" },
+        { meal_id: mealMap["Ice Cream Sundae"], name: "Chocolate Sauce" },
+        { meal_id: mealMap["Ice Cream Sundae"], name: "Nuts" },
+
+        { meal_id: mealMap["Lemon Tart"], name: "Lemon Curd" },
+        { meal_id: mealMap["Lemon Tart"], name: "Pastry Shell" },
+
+        { meal_id: mealMap["Crème Brûlée"], name: "Egg Yolks" },
+        { meal_id: mealMap["Crème Brûlée"], name: "Cream" },
+        { meal_id: mealMap["Crème Brûlée"], name: "Sugar" },
+
+        { meal_id: mealMap["Fruit Salad"], name: "Mixed Fruits" },
+        { meal_id: mealMap["Fruit Salad"], name: "Light Syrup" },
+
+        // Ingredients for drinks
+        { meal_id: mealMap["Mojito"], name: "Mint" },
+        { meal_id: mealMap["Mojito"], name: "Lime" },
+        { meal_id: mealMap["Mojito"], name: "Rum" },
+
+        { meal_id: mealMap["Lemonade"], name: "Lemons" },
+        { meal_id: mealMap["Lemonade"], name: "Water" },
+        { meal_id: mealMap["Lemonade"], name: "Sugar" },
+
+        { meal_id: mealMap["Iced Coffee"], name: "Coffee" },
+        { meal_id: mealMap["Iced Coffee"], name: "Ice" },
+
+        { meal_id: mealMap["Green Tea"], name: "Green Tea Leaves" },
+        { meal_id: mealMap["Green Tea"], name: "Hot Water" },
+
+        { meal_id: mealMap["Coca-Cola"], name: "Coca-Cola" },
+
+        { meal_id: mealMap["Mango Smoothie"], name: "Mango" },
+        { meal_id: mealMap["Mango Smoothie"], name: "Yogurt" },
+        { meal_id: mealMap["Mango Smoothie"], name: "Honey" },
+
+        { meal_id: mealMap["Orange Juice"], name: "Oranges" },
+
+        { meal_id: mealMap["Espresso"], name: "Espresso Beans" },
+        { meal_id: mealMap["Espresso"], name: "Water" },
+
+        { meal_id: mealMap["Hot Chocolate"], name: "Milk" },
+        { meal_id: mealMap["Hot Chocolate"], name: "Cocoa Powder" },
+        { meal_id: mealMap["Hot Chocolate"], name: "Sugar" },
+
+        { meal_id: mealMap["Milkshake"], name: "Milk" },
+        { meal_id: mealMap["Milkshake"], name: "Ice Cream" },
+        { meal_id: mealMap["Milkshake"], name: "Flavored Syrup" },
+    ];
+
+    await knex('ingredients').insert(ingredients);
+}

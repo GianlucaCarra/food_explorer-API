@@ -7,7 +7,7 @@
     "build": "npx tsc",
     "start:prod": "pm2-runtime start ecosystem.config.js --env production",
     "migrate:prod": "npx knex migrate:latest --env production",
-    "seed:prod": "npx seed:run --env production",
+    "seed:prod": "npx knex seed:run --env production",
     "dev": "nodemon --exec 'ts-node' src/server.ts",
     "start": "pm2-runtime start ecosystem.config.js --env development",
     "migrate": "npx ts-node ./node_modules/.bin/knex migrate:latest --env development",
