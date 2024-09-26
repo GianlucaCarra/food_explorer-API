@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/server.js",
   "scripts": {
-    "build": "npx tsc",
+    "build": "npm i && npx tsc",
     "start:prod": "pm2-runtime start ecosystem.config.js --env production",
     "migrate:prod": "npx knex migrate:latest --env production",
     "seed:prod": "npx seed:run --env production",
