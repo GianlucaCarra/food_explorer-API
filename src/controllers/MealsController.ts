@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { CloudinaryStorage } from "../providers/CloudinaryStorage";
 import connection from "../database/knex";
-import AppError from "src/utils/AppError";
-import BufferToStream from "src/utils/BufferToStream";
+import AppError from "../utils/AppError";
+import BufferToStream from "../utils/BufferToStream";
 import IIngredient from "../types/IIngredients";
 
 class MealsController {
