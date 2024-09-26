@@ -16,8 +16,7 @@ interface CustomJWTPayload extends JwtPayload {
 }
 
 function ensureAuth(req: IRequestMiddleware, res: Response, next: NextFunction) {
-  const cookies = req.cookies;
-  const { token } = cookies;
+  const { token } = req.cookies;
 
   if(!token) {
     throw new AppError('Not available JWT');
