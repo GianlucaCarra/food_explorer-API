@@ -8,8 +8,7 @@ import cookieParser from "cookie-parser";
 import routes from "./routes";
 
 const app = express();
-const env = process.env.NODE_ENV || "development";
-const PORT = 3334;
+const PORT = 1000;
 
 app.use(express.json());
 
@@ -17,7 +16,7 @@ app.use(cookieParser());
 
 app.use(cors({
   origin: process.env.ORIGIN,
-  credentials: env === "development" ? false : true
+  credentials: true,
 }));
 
 app.use(routes);

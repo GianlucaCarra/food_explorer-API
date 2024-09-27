@@ -8,7 +8,7 @@ exports.up = async (knex: Knex): Promise<void> => {
 
     table.string("desc").notNullable();
 
-    table.string("imageURL");
+    table.string("imageURL", 1000);
 
     table.string("publicID");
 
