@@ -8,7 +8,7 @@ import cookieParser from "cookie-parser";
 import routes from "./routes";
 
 const app = express();
-const PORT = 1000;
+const PORT = 3000;
 
 app.use(express.json());
 

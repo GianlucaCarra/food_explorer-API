@@ -1,6 +1,6 @@
 # 🍽️ Food Explorer API
 
-[👉 Explore the Food Explorer Frontend Here](https://app.vististudi.online)
+[👉 Explore the Food Explorer Frontend Here](https://vististudi.online)
 
 Welcome to the **Food Explorer API**! This API powers the backend for the Food Explorer platform, allowing foodies to dive into a world of delicious dishes, add their favorites, place orders, and more. Built with 💻 **Node.js**, 🚀 **Express**, ⚙️ **Knex**, and 🔥 **TypeScript**, this robust API ensures smooth and scalable operations. From **JWT authentication** to image handling with **Cloudinary**, the Food Explorer API covers it all!
 
@@ -57,4 +57,4 @@ The **Food Explorer API** is a complete solution for managing a food service pla
 
 This project showcases key skills in **Node.js**, **TypeScript**, **API design**, and **database management**, making it an excellent addition to my developer portfolio. 🚀
 
-For more details or to check out the frontend, visit [👉 Food Explorer Frontend](https://app.vististudi.online). Happy exploring! 🌟
+For more details or to check out the frontend, visit [👉 Food Explorer Frontend](https://vististudi.online). Happy exploring! 🌟
